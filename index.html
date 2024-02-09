@@ -1,62 +1,31 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
-    <title>吴堡县黄河红栆业生态开发有限公司- 样式检查页面</title>
-
+    <title>样式表加载检测页面</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-
-    <!-- 用于检测CSS文件是否加载成功 -->
-    <script>
-        function checkCSS() {
-            var stylesheet = document.styleSheets[0];
-            if (stylesheet) {
-                var rules = stylesheet.cssRules || stylesheet.rules;
-                if (rules.length === 0) {
-                    showError("Failed to load CSS file.");
-                }
-            } else {
-                showError("Failed to load CSS file.");
-            }
-        }
-        function showError(message) {
-            var errorContainer = document.getElementById("error-container");
-            errorContainer.innerHTML = message;
-            errorContainer.style.display = "block";
-        }
-    </script>
-
-    <!-- 如果没有成功加载第三方样式 -->
-    <noscript>
-        <style>
-            #error-container {
-                display: block;
-                background-color: red;
-                color: white;
-                padding: 10px;
-                font-size: 16px;
-            }
-        </style>
-    </noscript>
-
-    <!-- 前往菜单页面 -->
-    <script>
-        window.location.href = "./index-menu.html";
-    </script>
 </head>
-
-<body onload="checkCSS()">
-    <h1>页面跳转中...</h1>
-    
-    <!-- 老旧显示器无法加载样式表显示的内容 -->
-    <div id="error-container" style="display: none;">
-        <p>浏览器没有成功加载样式表！</p>
-        <p>请检查是否浏览器拦截了页面程序的运行，</p>
-        <p>如果浏览器未拦截程序请刷新您的浏览器，</p>
-        <p>如果刷新没有正确显示页面，请更新您的浏览器至最新版本！</p>
+<body>
+    <div id="loading-msg">
+        <h1>正在加载中...</h1>
+        <p>当您看到这行字的时候，说明您的网速链接较慢，请耐心等待。</p>
+        <p>如果长时间未跳转，请点击：<a href="./index-menu.html">手动跳转</a></p>
     </div>
 
+    <script>
+        // 检测样式表是否加载成功
+        var link = document.querySelector('link[href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"]');
+        if (link.sheet) {
+            // 样式表已加载
+            console.log("样式表已加载");
+            setTimeout(function() {
+                window.location.href = "./index-menu.html";
+            }, 1000);
+        } else {
+            // 样式表未加载
+            console.log("样式表未加载");
+            document.getElementById("loading-msg").style.display = "block";
+        }
+    </script>
 </body>
-
 </html>
